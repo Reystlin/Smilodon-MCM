@@ -84,10 +84,10 @@ Event OnPageReset(String a_page)
 		AddEmptyOption()
 		If (!SMH_Mechanics_Global_DisableDynamicCombat.GetValue() As Bool)
 			AddToggleOptionST("SMH_DisableTimedBlock_B", "$SMH_ToggleOption_DisableTimedBlock", !SMH_Mechanics_Global_DisableTimedBlock.GetValue() As Bool)
-			AddToggleOptionST("SMH_DisableSpeedNerfZeroStamina_B", "$SMH_ToggleOption_DisableSpeedNerfZeroStamina", !SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Bool)
-			AddToggleOptionST("SMH_DisableBowInterrupt_B", "$SMH_ToggleOption_DisableBowInterrupt", !SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Bool)
 			AddMenuOptionST("SMH_StaggerType_M", "$SMH_MenuOption_StaggerType", _menuEntriesStaggerType[_menuEntriesStaggerTypeIdx])
+			AddToggleOptionST("SMH_DisableSpeedNerfZeroStamina_B", "$SMH_ToggleOption_DisableSpeedNerfZeroStamina", !SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Bool)
 			AddSliderOptionST("SMH_AttacksCostStamina_1H_S", "$SMH_SliderOption_AttacksCostStamina_1H", SMH_Mechanics_Global_AttacksCostStamina_1H.GetValue() As Float)
+			AddToggleOptionST("SMH_DisableBowInterrupt_B", "$SMH_ToggleOption_DisableBowInterrupt", !SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Bool)
 			AddSliderOptionST("SMH_AttacksCostStamina_2H_S", "$SMH_SliderOption_AttacksCostStamina_2H", SMH_Mechanics_Global_AttacksCostStamina_2H.GetValue() As Float)
 		EndIf
 
@@ -239,48 +239,6 @@ State SMH_DisableTimedBlock_B
 EndState
 
 
-State SMH_DisableSpeedNerfZeroStamina_B
-	Event OnSelectST()
-		ToggleBool(SMH_Mechanics_Global_DisableSpeedNerfZeroStamina)
-		SetToggleOptionValueST(!SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Bool)
-		If (!SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Bool)
-			ForcePageReset()
-		EndIf
-	EndEvent
-
-	Event OnDefaultST()
-		SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.SetValue(0)
-		SetToggleOptionValueST(!SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Bool)
-		ForcePageReset()
-	EndEvent
-
-	Event OnHighlightST()
-		SetInfoText("$SMH_InfoText_DisableSpeedNerfZeroStamina")
-	EndEvent
-EndState
-
-
-State SMH_DisableBowInterrupt_B
-	Event OnSelectST()
-		ToggleBool(SMH_Mechanics_Global_DisableBowInterrupt)
-		SetToggleOptionValueST(!SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Bool)
-		If (!SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Bool)
-			ForcePageReset()
-		EndIf
-	EndEvent
-
-	Event OnDefaultST()
-		SMH_Mechanics_Global_DisableBowInterrupt.SetValue(0)
-		SetToggleOptionValueST(!SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Bool)
-		ForcePageReset()
-	EndEvent
-
-	Event OnHighlightST()
-		SetInfoText("$SMH_InfoText_DisableBowInterrupt")
-	EndEvent
-EndState
-
-
 State SMH_StaggerType_M
 	Event OnMenuOpenST()
 		SetMenuDialogStartIndex(_menuEntriesStaggerTypeIdx)
@@ -306,6 +264,27 @@ State SMH_StaggerType_M
 EndState
 
 
+State SMH_DisableSpeedNerfZeroStamina_B
+	Event OnSelectST()
+		ToggleBool(SMH_Mechanics_Global_DisableSpeedNerfZeroStamina)
+		SetToggleOptionValueST(!SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Bool)
+		If (!SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Bool)
+			ForcePageReset()
+		EndIf
+	EndEvent
+
+	Event OnDefaultST()
+		SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.SetValue(0)
+		SetToggleOptionValueST(!SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Bool)
+		ForcePageReset()
+	EndEvent
+
+	Event OnHighlightST()
+		SetInfoText("$SMH_InfoText_DisableSpeedNerfZeroStamina")
+	EndEvent
+EndState
+
+
 State SMH_AttacksCostStamina_1H_S
 	Event OnSliderOpenST()
 		SetSliderDialogStartValue(SMH_Mechanics_Global_AttacksCostStamina_1H.GetValue() As Float)
@@ -326,6 +305,27 @@ State SMH_AttacksCostStamina_1H_S
 
 	Event OnHighlightST()
 		SetInfoText("$SMH_InfoText_AttacksCostStamina_1H")
+	EndEvent
+EndState
+
+
+State SMH_DisableBowInterrupt_B
+	Event OnSelectST()
+		ToggleBool(SMH_Mechanics_Global_DisableBowInterrupt)
+		SetToggleOptionValueST(!SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Bool)
+		If (!SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Bool)
+			ForcePageReset()
+		EndIf
+	EndEvent
+
+	Event OnDefaultST()
+		SMH_Mechanics_Global_DisableBowInterrupt.SetValue(0)
+		SetToggleOptionValueST(!SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Bool)
+		ForcePageReset()
+	EndEvent
+
+	Event OnHighlightST()
+		SetInfoText("$SMH_InfoText_DisableBowInterrupt")
 	EndEvent
 EndState
 
@@ -433,10 +433,10 @@ Function BeginSavePreset()
 	fiss.saveInt("SMH_DisableDragonPenalties_B", SMH_Mechanics_Global_DisableDragonPenalties.GetValue() As Int)
 	fiss.saveInt("SMH_DisableDynamicCombat_B", SMH_Mechanics_Global_DisableDynamicCombat.GetValue() As Int)
 	fiss.saveInt("SMH_DisableTimedBlock_B", SMH_Mechanics_Global_DisableTimedBlock.GetValue() As Int)
-	fiss.saveInt("SMH_DisableSpeedNerfZeroStamina_B", SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Int)
-	fiss.saveInt("SMH_DisableBowInterrupt_B", SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Int)
 	fiss.saveInt("SMH_StaggerType_M", SMH_Mechanics_Global_StaggerType.GetValue() As Int)
+	fiss.saveInt("SMH_DisableSpeedNerfZeroStamina_B", SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.GetValue() As Int)
 	fiss.saveInt("SMH_AttacksCostStamina_1H_S", SMH_Mechanics_Global_AttacksCostStamina_1H.GetValue() As Int)
+	fiss.saveInt("SMH_DisableBowInterrupt_B", SMH_Mechanics_Global_DisableBowInterrupt.GetValue() As Int)
 	fiss.saveInt("SMH_AttacksCostStamina_2H_S", SMH_Mechanics_Global_AttacksCostStamina_2H.GetValue() As Int)
 	fiss.saveInt("SMH_AttacksCostStamina_Bow_S", SMH_Mechanics_Global_AttacksCostStamina_Bow.GetValue() As Int)
 
@@ -471,11 +471,11 @@ Function BeginLoadPreset()
 	SMH_Mechanics_Global_DisableDragonPenalties.SetValue(fiss.loadInt("SMH_DisableDragonPenalties_B"))
 	SMH_Mechanics_Global_DisableDynamicCombat.SetValue(fiss.loadInt("SMH_DisableDynamicCombat_B"))
 	SMH_Mechanics_Global_DisableTimedBlock.SetValue(fiss.loadInt("SMH_DisableTimedBlock_B"))
-	SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.SetValue(fiss.loadInt("SMH_DisableSpeedNerfZeroStamina_B"))
-	SMH_Mechanics_Global_DisableBowInterrupt.SetValue(fiss.loadInt("SMH_DisableBowInterrupt_B"))
 	SMH_Mechanics_Global_StaggerType.SetValue(fiss.loadInt("SMH_StaggerType_M"))
 	_menuEntriesStaggerTypeIdx = fiss.loadInt("SMH_StaggerType_M")
+	SMH_Mechanics_Global_DisableSpeedNerfZeroStamina.SetValue(fiss.loadInt("SMH_DisableSpeedNerfZeroStamina_B"))
 	SMH_Mechanics_Global_AttacksCostStamina_1H.SetValue(fiss.loadInt("SMH_AttacksCostStamina_1H_S"))
+	SMH_Mechanics_Global_DisableBowInterrupt.SetValue(fiss.loadInt("SMH_DisableBowInterrupt_B"))
 	SMH_Mechanics_Global_AttacksCostStamina_2H.SetValue(fiss.loadInt("SMH_AttacksCostStamina_2H_S"))
 	SMH_Mechanics_Global_AttacksCostStamina_Bow.SetValue(fiss.loadInt("SMH_AttacksCostStamina_Bow_S"))
 
