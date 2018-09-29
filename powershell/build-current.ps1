@@ -2,7 +2,7 @@ param([string]$filePath)
 
 # USER DEFINED
 $sse = "D:\Games\SteamLibrary\steamapps\common\Skyrim Special Edition"
-$outDir = "D:\Mods\ModOrganizer2_SkyrimSE\mods\Smilodon - Combat of Skyrim MCM Patch"
+$outDir = "D:\Mods\ModOrganizer2_SkyrimSE\mods\Smilodon - Combat of Skyrim MCM Patch - DEV"
 
 
 # GRAB DIRECTORIES
